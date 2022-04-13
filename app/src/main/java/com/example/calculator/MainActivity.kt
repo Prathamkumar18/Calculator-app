@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calculator.R
 import net.objecthunter.exp4j.ExpressionBuilder
@@ -113,8 +114,16 @@ class MainActivity : AppCompatActivity() {
     }
     fun onclickEqual(view: View) {
         var txtinput = input.text.toString()
-        var result = ExpressionBuilder(txtinput).build().evaluate()
-        val res=findViewById<TextView>(R.id.result)
-        res.setText(result.toString())
+        if(txtinput.endsWith("+")||txtinput.endsWith("-")||txtinput.endsWith("/")||txtinput.endsWith("*")){
+            Toast.makeText(this,"illegal expression",Toast.LENGTH_SHORT).show()
+        }
+        else if(txtinput.isEmpty()){
+            Toast.makeText(this,"Plz provide the input",Toast.LENGTH_SHORT).show()
+        }
+        else {
+            var result = ExpressionBuilder(txtinput).build().evaluate()
+            val res = findViewById<TextView>(R.id.result)
+            res.setText(result.toString())
+        }
     }
 }
